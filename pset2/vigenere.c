@@ -1,5 +1,3 @@
-// vigenere cipher
-
 #include <cs50.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,29 +20,33 @@ int main(int argc, string argv[])
     // iterate through key, check that all characters are alphabetical
     for (int i = 0; i < keylen; i++) 
     {
+        // if not alphabetical, print error message and exit
         if (isalpha(key[i]) == false)
         {
             printf("alphabetical characters only!\n");
             return 1;
         }
     }
+            
             printf("plaintext: ");
             
+            // prompt user for plaintext
             string plntxt = get_string();
             int plntxtlen = strlen(plntxt);
         
             if (plntxt != NULL)
             {
                 printf("ciphertext: ");
+                
                 // loop through plaintext string
                 for (int j = 0, k = 0; j < plntxtlen; j++)
                 { 
                     // convert key from ASCII to alphabetical index
                     int key_index = tolower(key[k % keylen]) - 97;
+                    
                     // if alphabetical characters in plaintext:
                     if (isalpha(plntxt[j]))
                     {
-                        
                         // if uppercase:
                         if (isupper(plntxt[j])) 
                         {
@@ -67,8 +69,6 @@ int main(int argc, string argv[])
                 }
             
             }
-        
-        
         printf("\n");
         return 0;
 }
