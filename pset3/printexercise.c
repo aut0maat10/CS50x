@@ -24,6 +24,7 @@ int main(void)
             }
             else // print tile number
             {
+                // add spaces before single digit numbers
                 printf("%3i", board[i][j]);
             }
         }
