@@ -1,0 +1,16 @@
+0. Besides 4 × 4 (which are Game of Fifteen’s dimensions), what other dimensions does the framework allow?
+    - Dimensions must be between 3 x 3 and 9 x 9.
+    
+1. With what sort of data structure is the game’s board represented?
+    - Arrays
+    
+2. What function is called to greet the player at game’s start?
+    - greet()
+    
+3. What functions do you apparently need to implement?
+    - void init(void): a function to initialize the game's boardwith tiles numbered 1 to d * d - 1
+    - void draw(void): a function that prints the board in its current state
+    - bool move(int tile): a function that moves tile and returns true if tile borders empty space,
+        else returns false
+    -bool won(void): a function that returns true if game is won (i.e. board is is winning configuration),
+        else returns false
