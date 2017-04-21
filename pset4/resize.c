@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     new_bi.biWidth = bi.biWidth * n;
     new_bi.biHeight = bi.biHeight * n;
     
-    // infile padding !!!!! PROBLEM WITH OLD bi ?????????
+    // infile padding, keep track of
     int old_padding =  (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
     // outfile new padding 
     int new_padding = (4 - (new_bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
@@ -79,13 +79,10 @@ int main(int argc, char *argv[])
     // write outfile's BITMAPINFOHEADER
     fwrite(&new_bi, sizeof(BITMAPINFOHEADER), 1, outptr);
 
-    // determine padding for scanlines
-    //int padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-
     // iterate over infile's scanlines
     for (int i = 0, biHeight = abs(bi.biHeight); i < biHeight; i++)
     {
-        // iterate over scanlines n times
+        // iterate over each line n times (user input)
         for (int m = 0; m < n; m++)
         {
             // iterate over pixels in scanline
@@ -107,12 +104,17 @@ int main(int argc, char *argv[])
             // skip over padding, if any
             fseek(inptr, old_padding, SEEK_CUR);
 
-            // then add it back (to demonstrate how)
+            // then add it to outfile
             for (int k = 0; k < new_padding; k++)
             {
             fputc(0x00, outptr);
             }
+            
+            // move file pointer back to the start of the row
+            fseek(inptr, -(bi.biWidth * 3 + old_padding), SEEK_CUR);
+            
         }
+        fseek(inptr, (bi.biWidth * 3 + old_padding), SEEK_CUR);
     }
 
     // close infile
